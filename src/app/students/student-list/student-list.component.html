@@ -1,0 +1,51 @@
+<div>
+  <h2>Student List</h2>
+  <div>
+    <button routerLink="/students/add">Add Student</button>
+  </div>
+  <table>
+    <thead>
+      <th>#</th>
+      <th>Full Name</th>
+      <th>Father Name</th>
+      <th>Contact Number</th>
+      <th>Course</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let student of students
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: page };
+          let i = index
+        "
+      >
+        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
+        <td [routerLink]="['/students', student._id]">
+          {{ student.fullName }}
+        </td>
+        <td>{{ student.fatherName }}</td>
+        <td>{{ student.contactNumber }}</td>
+        <td>{{ student.course }}</td>
+        <td>
+          <button
+            mat-stroked-button
+            [routerLink]="['/students/edit', student._id]"
+          >
+            Edit
+          </button>
+          <button mat-stroked-button [routerLink]="['/students', student._id]">
+            View
+          </button>
+          <button mat-stroked-button (click)="deleteStudent(student._id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Pagination Controls -->
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+
+  <p *ngIf="students?.length === 0">No students found.</p>
+</div>
