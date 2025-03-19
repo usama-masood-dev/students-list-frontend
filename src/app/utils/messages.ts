@@ -14,6 +14,7 @@ export const TOAST_MESSAGES = {
     LOGIN_FAILED: 'Invalid credentials. Please try again.',
     UNAUTHORIZED: 'You are not authorized to perform this action!',
     SERVER_ERROR: 'Something went wrong. Please try again later.',
+    INVALID_DATA: 'Invalid form input',
   },
   INFO: {
     LOADING: 'Loading data, please wait...',

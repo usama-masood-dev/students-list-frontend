@@ -1,6 +1,6 @@
 /* Container */
-.login-container {
-  max-width: 400px;
+.student-container {
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   background: white;
@@ -17,7 +17,7 @@ h2 {
 }
 
 /* Form */
-.login-form {
+.student-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -36,7 +36,8 @@ label {
   color: #007bff;
 }
 
-input {
+input,
+select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -44,13 +45,14 @@ input {
   transition: border 0.3s ease-in-out;
 }
 
-input:focus {
+input:focus,
+select:focus {
   border-color: #007bff;
   outline: none;
 }
 
-/* Login Button */
-.login-btn {
+/* Submit Button */
+.submit-btn {
   background-color: #007bff;
   color: white;
   padding: 12px;
@@ -61,13 +63,13 @@ input:focus {
   transition: background 0.3s ease;
 }
 
-.login-btn:hover {
+.submit-btn:hover {
   background-color: #0056b3;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .login-container {
+  .add-student-container {
     max-width: 100%;
     padding: 15px;
   }

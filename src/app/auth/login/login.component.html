@@ -1,25 +1,66 @@
-<div>
+<div class="login-container">
   <h2>Login</h2>
 
-  <form (submit)="onlogin()">
-    <div>
+  <form [formGroup]="loginForm" (submit)="onlogin()" class="login-form">
+    <!-- Email Field -->
+    <div class="form-group">
       <label for="email">Email:</label>
       <input
         type="email"
-        placeholder="Email"
-        [(ngModel)]="email"
-        name="email"
+        id="email"
+        placeholder="Enter your email"
+        formControlName="email"
       />
+      <small
+        class="error"
+        *ngIf="
+          loginForm.get('email')?.hasError('required') &&
+          loginForm.get('email')?.touched
+        "
+      >
+        Email is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="
+          loginForm.get('email')?.hasError('email') &&
+          loginForm.get('email')?.touched
+        "
+      >
+        Enter a valid email address.
+      </small>
     </div>
-    <div>
+
+    <!-- Password Field -->
+    <div class="form-group">
       <label for="password">Password:</label>
       <input
         type="password"
-        placeholder="Password"
-        [(ngModel)]="password"
-        name="password"
+        id="password"
+        placeholder="Enter your password"
+        formControlName="password"
       />
+      <small
+        class="error"
+        *ngIf="
+          loginForm.get('password')?.hasError('required') &&
+          loginForm.get('password')?.touched
+        "
+      >
+        Password is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="
+          loginForm.get('password')?.hasError('minlength') &&
+          loginForm.get('password')?.touched
+        "
+      >
+        Password must be at least 6 characters long.
+      </small>
     </div>
-    <button type="submit">Login</button>
+
+    <!-- Login Button -->
+    <button type="submit" class="login-btn">Login</button>
   </form>
 </div>

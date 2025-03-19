@@ -1,5 +1,14 @@
-<div>
-  <button *ngIf="!isLoggedIn" routerLink="/login">Login</button>
-  <button *ngIf="!isLoggedIn" routerLink="/signup">Signup</button>
-  <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+<div class="header">
+  <div class="logo" routerLink="/students">Logo</div>
+  <div class="links">
+    <button *ngIf="isLoggedIn" routerLink="/students">Students List</button>
+    <button *ngIf="isLoggedIn" routerLink="/students/add">
+      Add New Student
+    </button>
+  </div>
+  <div class="auth-buttons">
+    <button *ngIf="!isLoggedIn" routerLink="/login">Login</button>
+    <button *ngIf="!isLoggedIn" routerLink="/signup">Signup</button>
+    <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+  </div>
 </div>

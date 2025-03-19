@@ -1,9 +1,12 @@
-<div>
+<div class="student-details-container">
   <h2>Student Details</h2>
-  <p><strong>Full Name:</strong> {{ student.fullName }}</p>
-  <p><strong>Father Name:</strong> {{ student.fatherName }}</p>
-  <p><strong>Contact Number:</strong> {{ student.contactNumber }}</p>
-  <p><strong>Course:</strong> {{ student.course }}</p>
 
-  <button (click)="backToList()">Back</button>
+  <div class="student-info">
+    <p><strong>Full Name:</strong> {{ student.fullName }}</p>
+    <p><strong>Father Name:</strong> {{ student.fatherName }}</p>
+    <p><strong>Contact Number:</strong> {{ student.contactNumber }}</p>
+    <p><strong>Course:</strong> {{ student.course }}</p>
+  </div>
+
+  <button (click)="backToList()" class="back-btn">Back</button>
 </div>

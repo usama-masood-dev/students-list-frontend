@@ -1,16 +1,20 @@
-<div>
+<div class="student-list-container">
   <h2>Student List</h2>
-  <div>
+
+  <div class="student-actions">
     <button routerLink="/students/add">Add Student</button>
   </div>
+
   <table>
     <thead>
-      <th>#</th>
-      <th>Full Name</th>
-      <th>Father Name</th>
-      <th>Contact Number</th>
-      <th>Course</th>
-      <th>Actions</th>
+      <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Father Name</th>
+        <th>Contact Number</th>
+        <th>Course</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
       <tr
@@ -21,13 +25,13 @@
         "
       >
         <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
-        <td [routerLink]="['/students', student._id]">
+        <td [routerLink]="['/students', student._id]" class="student-name">
           {{ student.fullName }}
         </td>
         <td>{{ student.fatherName }}</td>
         <td>{{ student.contactNumber }}</td>
         <td>{{ student.course }}</td>
-        <td>
+        <td class="action-buttons">
           <button
             mat-stroked-button
             [routerLink]="['/students/edit', student._id]"
@@ -37,15 +41,20 @@
           <button mat-stroked-button [routerLink]="['/students', student._id]">
             View
           </button>
-          <button mat-stroked-button (click)="deleteStudent(student._id)">
+          <button
+            mat-stroked-button
+            class="delete-btn"
+            (click)="deleteStudent(student._id)"
+          >
             Delete
           </button>
         </td>
       </tr>
     </tbody>
   </table>
+
   <!-- Pagination Controls -->
   <pagination-controls (pageChange)="page = $event"></pagination-controls>
 
-  <p *ngIf="students?.length === 0">No students found.</p>
+  <p *ngIf="students?.length === 0" class="no-students">No students found.</p>
 </div>

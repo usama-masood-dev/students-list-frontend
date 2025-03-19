@@ -1,33 +1,105 @@
-<div>
+<div class="signup-container">
   <h2>Signup</h2>
-  <form (submit)="onSignup()">
-    <div>
-      <label for="fullName"> Full Name: </label>
+
+  <form [formGroup]="signupForm" (submit)="onSignup()" class="signup-form">
+    <!-- Full Name Field -->
+    <div class="form-group">
+      <label for="fullName">Full Name:</label>
       <input
         type="text"
-        [(ngModel)]="fullName"
+        id="fullName"
+        formControlName="fullName"
         name="fullName"
-        placeholder="Full Name"
+        placeholder="Enter your full name"
       />
+      <small
+        class="error"
+        *ngIf="
+          signupForm.get('fullName')?.hasError('required') &&
+          signupForm.get('fullName')?.touched
+        "
+      >
+        Full Name is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="
+          signupForm.get('fullName')?.hasError('minlength') &&
+          signupForm.get('fullName')?.touched
+        "
+      >
+        Full Name must be at least 3 characters long.
+      </small>
     </div>
-    <div>
+
+    <!-- Email Field -->
+    <div class="form-group">
       <label for="email">Email:</label>
       <input
         type="email"
-        [(ngModel)]="email"
+        id="email"
+        formControlName="email"
         name="email"
-        placeholder="Email"
+        placeholder="Enter your email"
       />
+      <small
+        class="error"
+        *ngIf="
+          signupForm.get('email')?.hasError('required') &&
+          signupForm.get('email')?.touched
+        "
+      >
+        Email is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="
+          signupForm.get('email')?.hasError('email') &&
+          signupForm.get('email')?.touched
+        "
+      >
+        Enter a valid email address.
+      </small>
+      <small
+        *ngIf="signupForm.get('email')?.hasError('emailExists')"
+        class="error"
+      >
+        This email is already in use. Try another one.
+      </small>
     </div>
-    <div>
+
+    <!-- Password Field -->
+    <div class="form-group">
       <label for="password">Password:</label>
       <input
         type="password"
-        [(ngModel)]="password"
+        id="password"
+        formControlName="password"
         name="password"
-        placeholder="Password"
+        placeholder="Enter your password"
+        minlength="6"
       />
+      <small
+        class="error"
+        *ngIf="
+          signupForm.get('password')?.hasError('required') &&
+          signupForm.get('password')?.touched
+        "
+      >
+        Password is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="
+          signupForm.get('password')?.hasError('minlength') &&
+          signupForm.get('password')?.touched
+        "
+      >
+        Password must be at least 6 characters long.
+      </small>
     </div>
-    <button type="submit">Signup</button>
+
+    <!-- Signup Button -->
+    <button type="submit" class="signup-btn">Signup</button>
   </form>
 </div>

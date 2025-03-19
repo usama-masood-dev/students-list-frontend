@@ -1,0 +1,98 @@
+<div class="student-container">
+  <h2>{{ studentId ? "Edit Student" : "Add New Student" }}</h2>
+
+  <form [formGroup]="studentForm" (submit)="onSubmit()" class="student-form">
+    <!-- Full Name -->
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input
+        type="text"
+        id="fullName"
+        placeholder="Enter full name"
+        formControlName="fullName"
+      />
+      <small
+        class="error"
+        *ngIf="
+          studentForm.get('fullName')?.hasError('required') &&
+          studentForm.get('fullName')?.touched
+        "
+      >
+        Full Name is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="studentForm.get('fullName')?.hasError('minlength')"
+      >
+        Full Name must be 3 characters long.
+      </small>
+    </div>
+
+    <!-- Father Name -->
+    <div class="form-group">
+      <label for="fatherName">Father Name</label>
+      <input
+        type="text"
+        id="fatherName"
+        placeholder="Enter father name"
+        formControlName="fatherName"
+      />
+      <small
+        class="error"
+        *ngIf="
+          studentForm.get('fatherName')?.hasError('required') &&
+          studentForm.get('fatherName')?.touched
+        "
+      >
+        Father Name is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="studentForm.get('fatherName')?.hasError('minlength')"
+      >
+        Father Name must be 3 characters long.
+      </small>
+    </div>
+
+    <!-- Contact Number -->
+    <div class="form-group">
+      <label for="contactNumber">Contact Number</label>
+      <input
+        type="number"
+        id="contactNumber"
+        placeholder="Enter contact number"
+        formControlName="contactNumber"
+      />
+      <small
+        class="error"
+        *ngIf="
+          studentForm.get('contactNumber')?.hasError('required') &&
+          studentForm.get('contactNumber')?.touched
+        "
+      >
+        Contact Number is required.
+      </small>
+      <small
+        class="error"
+        *ngIf="studentForm.get('contactNumber')?.hasError('pattern')"
+      >
+        Please enter a valid number.
+      </small>
+    </div>
+
+    <!-- Course Selection -->
+    <div class="form-group">
+      <label for="course">Course</label>
+      <select id="course" formControlName="course">
+        <option *ngFor="let course of courses" [value]="course">
+          {{ course }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="submit-btn">
+      {{ studentId ? "Update Student" : "Add Student" }}
+    </button>
+  </form>
+</div>

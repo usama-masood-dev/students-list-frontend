@@ -2,6 +2,7 @@ import { ToastService } from './../../services/toast.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+  });
 
   constructor(
     private authService: AuthService,
@@ -19,11 +25,16 @@ export class LoginComponent {
   ) {}
 
   async onlogin() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      // this.toastService.showError('INVALID_DATA');
+      return;
+    }
+
     try {
-      const response = await this.authService.login({
-        email: this.email,
-        password: this.password,
-      });
+      const { email, password } = this.loginForm.value;
+
+      const response = await this.authService.login({ email, password });
 
       localStorage.setItem('token', response.token);
       this.toastService.showSuccess('LOGIN_SUCCESS');
@@ -31,6 +42,7 @@ export class LoginComponent {
       this.router.navigate(['/students']);
     } catch (error) {
       console.log('Login failed:', error);
+      this.toastService.showError('LOGIN_FAILED');
     }
   }
 }
