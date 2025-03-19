@@ -8,9 +8,17 @@ export class StudentService {
   private apiUrl = 'http://localhost:5000/api/students';
 
   // Get All Students data
-  async getStudents() {
+  async getStudents(page: number, limit: number) {
     try {
-      const response = await axios.get(`${this.apiUrl}`);
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `${this.apiUrl}?page=${page}&limit=${limit}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.log('Error fetching students list', error);
@@ -38,14 +46,12 @@ export class StudentService {
   async editStudent(id: string, updatedData: any) {
     try {
       const token = localStorage.getItem('token');
-      console.log(`${this.apiUrl}/${id}`);
       const response = await axios.put(`${this.apiUrl}/${id}`, updatedData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log('Error updating the student', error);

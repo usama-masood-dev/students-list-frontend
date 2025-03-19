@@ -34,7 +34,7 @@ h2 {
   transition: background 0.3s ease;
 }
 
-.student-actions button:hover {
+.student-actions button:not(:disabled):hover {
   background-color: #0056b3;
 }
 
@@ -122,5 +122,19 @@ tr:nth-child(even) {
   .action-buttons {
     flex-direction: column;
     gap: 5px;
+  }
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  align-items: center;
+
+  button {
+    background: inherit;
+    color: #0056b3;
+    text-decoration: underline;
+    font-weight: bold;
   }
 }

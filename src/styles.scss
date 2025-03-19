@@ -39,7 +39,6 @@ h5,
 h6 {
   font-weight: bold;
   margin-bottom: 10px;
-  font-family: var(--heading-font);
 }
 
 /* === Links === */
@@ -66,9 +65,13 @@ button {
   transition: background 0.3s ease, transform 0.1s ease-in-out;
 }
 
-button:hover {
+button:not(:disabled):hover {
   background-color: var(--primary-dark);
   transform: scale(1.05);
+}
+
+button:disabled {
+  opacity: 0.6;
 }
 
 button:active {

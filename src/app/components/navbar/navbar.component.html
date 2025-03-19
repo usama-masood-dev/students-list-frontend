@@ -7,8 +7,12 @@
     </button>
   </div>
   <div class="auth-buttons">
-    <button *ngIf="!isLoggedIn" routerLink="/login">Login</button>
-    <button *ngIf="!isLoggedIn" routerLink="/signup">Signup</button>
+    <button *ngIf="!isLoggedIn && isSignupPage" routerLink="/login">
+      Login
+    </button>
+    <button *ngIf="!isLoggedIn && isLoginPage" routerLink="/signup">
+      Signup
+    </button>
     <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
   </div>
 </div>

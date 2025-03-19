@@ -9,8 +9,11 @@ import { StudentService } from 'src/app/services/student.service';
 })
 export class StudentListComponent implements OnInit {
   students: any[] = [];
+
+  totalStudents = 0;
+  totalPages = 0;
   page = 1;
-  itemsPerPage = 5;
+  limit = 5;
 
   constructor(
     private studentService: StudentService,
@@ -24,10 +27,24 @@ export class StudentListComponent implements OnInit {
   // Load Students
   async loadStudents() {
     try {
-      this.students = await this.studentService.getStudents();
+      const response = await this.studentService.getStudents(
+        this.page,
+        this.limit
+      );
+
+      this.students = response.students;
+      this.totalStudents = response.totalStudents;
+      this.totalPages = Math.ceil(this.totalStudents / this.limit);
     } catch (error) {
       console.log('Failed to load students', error);
     }
+  }
+
+  // Handle page changes
+  changePage(newPage: number) {
+    if (newPage < 1 || newPage > this.totalPages) return;
+    this.page = newPage;
+    this.loadStudents();
   }
 
   async deleteStudent(id: string) {

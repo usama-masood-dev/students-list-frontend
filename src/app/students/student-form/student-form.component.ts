@@ -44,7 +44,6 @@ export class StudentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentId = this.route.snapshot.paramMap.get('id');
-    console.log(this.studentId);
     if (this.studentId) {
       this.loadStudentData();
     }
