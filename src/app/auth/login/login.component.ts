@@ -1,7 +1,7 @@
 import { ToastService } from './../../services/toast.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -24,10 +24,16 @@ export class LoginComponent {
     private toastService: ToastService
   ) {}
 
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/students']);
+      this.toastService.showInfo('ALREADY_LOGIN');
+    }
+  }
+
   async onlogin() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      // this.toastService.showError('INVALID_DATA');
       return;
     }
 

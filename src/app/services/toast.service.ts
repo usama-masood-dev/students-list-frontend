@@ -11,21 +11,27 @@ export class ToastService {
   showSuccess(messageKey: keyof typeof TOAST_MESSAGES.SUCCESS) {
     this.snackbar.open(TOAST_MESSAGES.SUCCESS[messageKey], 'Close', {
       duration: 3000,
-      panelClass: ['toast-success'],
+      panelClass: ['success-toast'],
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
     });
   }
 
   showError(messageKey: keyof typeof TOAST_MESSAGES.ERROR) {
     this.snackbar.open(TOAST_MESSAGES.ERROR[messageKey], 'Close', {
       duration: 3000,
-      panelClass: ['toast-error'],
+      panelClass: ['error-toast'],
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
     });
   }
 
   showInfo(messageKey: keyof typeof TOAST_MESSAGES.INFO) {
     this.snackbar.open(TOAST_MESSAGES.INFO[messageKey], 'Close', {
       duration: 3000,
-      panelClass: ['toast-info'],
+      panelClass: ['info-toast'],
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
     });
   }
 }

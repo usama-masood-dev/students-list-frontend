@@ -1,19 +1,20 @@
 <app-navbar></app-navbar>
-<div class="signup-container">
+<div class="form-container">
   <h2>Signup</h2>
 
-  <form [formGroup]="signupForm" (submit)="onSignup()" class="signup-form">
+  <form [formGroup]="signupForm" (submit)="onSignup()" class="form">
     <!-- Full Name Field -->
-    <div class="form-group">
-      <label for="fullName">Full Name:</label>
+    <mat-form-field class="form-group" appearance="outline">
+      <mat-label for="fullName">Full Name:</mat-label>
       <input
+        matInput
         type="text"
         id="fullName"
         formControlName="fullName"
         name="fullName"
         placeholder="Enter your full name"
       />
-      <small
+      <mat-error
         class="error"
         *ngIf="
           signupForm.get('fullName')?.hasError('required') &&
@@ -21,8 +22,8 @@
         "
       >
         Full Name is required.
-      </small>
-      <small
+      </mat-error>
+      <mat-error
         class="error"
         *ngIf="
           signupForm.get('fullName')?.hasError('minlength') &&
@@ -30,20 +31,21 @@
         "
       >
         Full Name must be at least 3 characters long.
-      </small>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
     <!-- Email Field -->
-    <div class="form-group">
-      <label for="email">Email:</label>
+    <mat-form-field class="form-group" appearance="outline">
+      <mat-label for="email">Email:</mat-label>
       <input
+        matInput
         type="email"
         id="email"
         formControlName="email"
         name="email"
         placeholder="Enter your email"
       />
-      <small
+      <mat-error
         class="error"
         *ngIf="
           signupForm.get('email')?.hasError('required') &&
@@ -51,8 +53,8 @@
         "
       >
         Email is required.
-      </small>
-      <small
+      </mat-error>
+      <mat-error
         class="error"
         *ngIf="
           signupForm.get('email')?.hasError('email') &&
@@ -60,19 +62,20 @@
         "
       >
         Enter a valid email address.
-      </small>
-      <small
+      </mat-error>
+      <mat-error
         *ngIf="signupForm.get('email')?.hasError('emailExists')"
         class="error"
       >
         This email is already in use. Try another one.
-      </small>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
     <!-- Password Field -->
-    <div class="form-group">
-      <label for="password">Password:</label>
+    <mat-form-field class="form-group" appearance="outline">
+      <mat-label for="password">Password:</mat-label>
       <input
+        matInput
         type="password"
         id="password"
         formControlName="password"
@@ -80,7 +83,7 @@
         placeholder="Enter your password"
         minlength="6"
       />
-      <small
+      <mat-error
         class="error"
         *ngIf="
           signupForm.get('password')?.hasError('required') &&
@@ -88,8 +91,8 @@
         "
       >
         Password is required.
-      </small>
-      <small
+      </mat-error>
+      <mat-error
         class="error"
         *ngIf="
           signupForm.get('password')?.hasError('minlength') &&
@@ -97,10 +100,12 @@
         "
       >
         Password must be at least 6 characters long.
-      </small>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
     <!-- Signup Button -->
-    <button type="submit" class="signup-btn">Signup</button>
+    <button class="btn" type="submit" mat-flat-button color="primary">
+      Signup
+    </button>
   </form>
 </div>

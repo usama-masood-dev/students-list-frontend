@@ -1,6 +1,7 @@
-import { ToastService } from './../../services/toast.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { StudentService } from 'src/app/services/student.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-student-list',
@@ -8,12 +9,22 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./student-list.component.scss'],
 })
 export class StudentListComponent implements OnInit {
-  students: any[] = [];
+  displayedColumns: string[] = [
+    'index',
+    'fullName',
+    'fatherName',
+    'contactNumber',
+    'course',
+    'actions',
+  ];
 
+  dataSource: any;
+  students: any[] = [];
   totalStudents = 0;
-  totalPages = 0;
   page = 1;
   limit = 5;
+
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(
     private studentService: StudentService,
@@ -24,38 +35,50 @@ export class StudentListComponent implements OnInit {
     await this.loadStudents();
   }
 
-  // Load Students
   async loadStudents() {
     try {
       const response = await this.studentService.getStudents(
         this.page,
         this.limit
       );
-
+      this.dataSource = response.students;
       this.students = response.students;
       this.totalStudents = response.totalStudents;
-      this.totalPages = Math.ceil(this.totalStudents / this.limit);
+      this.dataSource.paginator = this.paginator;
     } catch (error) {
       console.log('Failed to load students', error);
     }
   }
 
-  // Handle page changes
-  changePage(newPage: number) {
-    if (newPage < 1 || newPage > this.totalPages) return;
-    this.page = newPage;
+  onPageChange(event: any) {
+    this.page = event.pageIndex + 1;
+    this.limit = event.pageSize;
+
     this.loadStudents();
   }
 
+  // Delete student
   async deleteStudent(id: string) {
     if (confirm('Are you sure you want to delete this student data?')) {
       try {
         await this.studentService.deleteStudent(id);
-        this.students = this.students.filter((student) => student._id !== id);
+        this.dataSource = this.dataSource.filter(
+          (student: any) => student._id !== id
+        );
         this.toastService.showSuccess('STUDENT_DELETED');
+        this.loadStudents();
       } catch (error) {
         console.log('Error deleting the student', error);
+        this.toastService.showError('STUDENT_DELETE_FAILED');
       }
     }
+  }
+
+  get pageIndex(): number {
+    return this.paginator ? this.paginator.pageIndex : 0;
+  }
+
+  get pageSize(): number {
+    return this.paginator ? this.paginator.pageSize : 10;
   }
 }

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,7 +40,8 @@ export class StudentFormComponent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -77,9 +79,16 @@ export class StudentFormComponent implements OnInit {
         );
         this.toastService.showSuccess('STUDENT_UPDATED');
       } else {
-        await this.studentService.addStudent(this.studentForm.value);
+        const user = await this.authService.getUserDetails();
+        if (!user || !user._id) {
+          throw new Error('User not logged in');
+        }
+
+        const studentData = { ...this.studentForm.value, userId: user._id };
+        await this.studentService.addStudent(studentData);
         this.toastService.showSuccess('STUDENT_ADDED');
       }
+
       this.router.navigate(['/students']);
     } catch (error) {
       console.error('Error saving student:', error);

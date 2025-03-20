@@ -17,6 +17,7 @@ export const TOAST_MESSAGES = {
     INVALID_DATA: 'Invalid form input',
   },
   INFO: {
+    ALREADY_LOGIN: 'You are already logged in.',
     LOADING: 'Loading data, please wait...',
     NO_STUDENTS_FOUND: 'No students found.',
   },

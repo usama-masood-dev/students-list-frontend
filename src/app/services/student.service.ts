@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,18 +8,26 @@ import axios from 'axios';
 export class StudentService {
   private apiUrl = 'http://localhost:5000/api/students';
 
+  constructor(private authService: AuthService) {}
+
   // Get All Students data
   async getStudents(page: number, limit: number) {
     try {
+      const user = await this.authService.getUserDetails();
+      if (!user || !user._id) {
+        throw new Error('User not logged in');
+      }
+
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `${this.apiUrl}?page=${page}&limit=${limit}`,
+        `${this.apiUrl}?userId=${user._id}&page=${page}&limit=${limit}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
       return response.data;
     } catch (error) {
       console.log('Error fetching students list', error);

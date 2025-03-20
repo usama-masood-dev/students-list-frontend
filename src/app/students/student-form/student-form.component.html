@@ -1,99 +1,76 @@
 <app-navbar></app-navbar>
-<div class="student-container">
+
+<div class="form-container">
   <h2>{{ studentId ? "Edit Student" : "Add New Student" }}</h2>
 
-  <form [formGroup]="studentForm" (submit)="onSubmit()" class="student-form">
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="form">
     <!-- Full Name -->
-    <div class="form-group">
-      <label for="fullName">Full Name</label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Full Name</mat-label>
       <input
-        type="text"
-        id="fullName"
+        matInput
         placeholder="Enter full name"
         formControlName="fullName"
       />
-      <small
-        class="error"
-        *ngIf="
-          studentForm.get('fullName')?.hasError('required') &&
-          studentForm.get('fullName')?.touched
-        "
-      >
+      <mat-error *ngIf="studentForm.get('fullName')?.hasError('required')">
         Full Name is required.
-      </small>
-      <small
-        class="error"
-        *ngIf="studentForm.get('fullName')?.hasError('minlength')"
-      >
-        Full Name must be 3 characters long.
-      </small>
-    </div>
+      </mat-error>
+      <mat-error *ngIf="studentForm.get('fullName')?.hasError('minlength')">
+        Full Name must be at least 3 characters long.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Father Name -->
-    <div class="form-group">
-      <label for="fatherName">Father Name</label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Father Name</mat-label>
       <input
-        type="text"
-        id="fatherName"
+        matInput
         placeholder="Enter father name"
         formControlName="fatherName"
       />
-      <small
-        class="error"
-        *ngIf="
-          studentForm.get('fatherName')?.hasError('required') &&
-          studentForm.get('fatherName')?.touched
-        "
-      >
+      <mat-error *ngIf="studentForm.get('fatherName')?.hasError('required')">
         Father Name is required.
-      </small>
-      <small
-        class="error"
-        *ngIf="studentForm.get('fatherName')?.hasError('minlength')"
-      >
-        Father Name must be 3 characters long.
-      </small>
-    </div>
+      </mat-error>
+      <mat-error *ngIf="studentForm.get('fatherName')?.hasError('minlength')">
+        Father Name must be at least 3 characters long.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Contact Number -->
-    <div class="form-group">
-      <label for="contactNumber">Contact Number</label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contact Number</mat-label>
       <input
-        type="number"
-        id="contactNumber"
+        matInput
+        type="tel"
         placeholder="Enter contact number"
         formControlName="contactNumber"
       />
-      <small
-        class="error"
-        *ngIf="
-          studentForm.get('contactNumber')?.hasError('required') &&
-          studentForm.get('contactNumber')?.touched
-        "
-      >
+      <mat-error *ngIf="studentForm.get('contactNumber')?.hasError('required')">
         Contact Number is required.
-      </small>
-      <small
-        class="error"
-        *ngIf="studentForm.get('contactNumber')?.hasError('pattern')"
-      >
+      </mat-error>
+      <mat-error *ngIf="studentForm.get('contactNumber')?.hasError('pattern')">
         Please enter a valid number.
-      </small>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
     <!-- Course Selection -->
-    <div class="form-group">
-      <label for="course">Course</label>
-      <select id="course" formControlName="course">
-        <option *ngFor="let course of courses" [value]="course">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Course</mat-label>
+      <mat-select formControlName="course">
+        <mat-option *ngFor="let course of courses" [value]="course">
           {{ course }}
-        </option>
-      </select>
-    </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <!-- Submit Button -->
-    <button type="submit" class="submit-btn">
-      {{ studentId ? "Update Student" : "Add Student" }}
-    </button>
+    <!-- Submit and Cancel Buttons -->
+    <div class="gap">
+      <button mat-stroked-button [routerLink]="['/students']">
+        {{ studentId ? "Cancel" : "Back to list" }}
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ studentId ? "Update Student" : "Add Student" }}
+      </button>
+    </div>
   </form>
 </div>

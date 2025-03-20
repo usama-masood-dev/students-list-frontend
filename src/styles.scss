@@ -1,182 +1,3 @@
-/* ========================== */
-/* 🌎 Global Styles */
-/* ========================== */
-
-/* === Root Variables === */
-:root {
-  --primary-color: #007bff;
-  --primary-dark: #0056b3;
-  --text-color: #333;
-  --bg-color: #f4f4f4;
-  --border-color: #ccc;
-  --heading-font: "Arial", sans-serif;
-  --body-font: "Arial", sans-serif;
-  --spacing: 10px;
-}
-
-/* === Global Reset === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: var(--body-font);
-}
-
-/* === Body Styling === */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  font-size: 16px;
-}
-
-/* === Headings === */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-/* === Links === */
-a {
-  text-decoration: none;
-  color: var(--primary-color);
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  text-decoration: underline;
-  color: var(--primary-dark);
-}
-
-/* === Buttons === */
-button {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
-  transition: background 0.3s ease, transform 0.1s ease-in-out;
-}
-
-button:not(:disabled):hover {
-  background-color: var(--primary-dark);
-  transform: scale(1.05);
-}
-
-button:disabled {
-  opacity: 0.6;
-}
-
-button:active {
-  transform: scale(0.95);
-}
-
-/* === Forms === */
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  transition: border-color 0.3s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* === Tables === */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: var(--spacing);
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: rgba(0, 123, 255, 0.1);
-}
-
-/* === Lists === */
-ul,
-ol {
-  margin-left: 20px;
-}
-
-li {
-  margin-bottom: 5px;
-}
-
-/* === Utility Classes === */
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-.flex-space-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing);
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-/* === Responsive Design === */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
-  button {
-    padding: 8px 12px;
-  }
-
-  th,
-  td {
-    padding: 8px;
-  }
-}
-
 .error {
   color: red;
   font-size: 14px;
@@ -184,7 +5,52 @@ li {
   margin-top: 5px;
 }
 
-input.ng-invalid.ng-touched {
-  border: 1px solid red;
-  background-color: #ffe6e6; /* Light red background */
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container {
+  max-width: 1250px;
+  margin: auto !important;
+  padding: 20px;
+}
+
+button {
+  font-size: 1rem !important;
+}
+
+.link {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }

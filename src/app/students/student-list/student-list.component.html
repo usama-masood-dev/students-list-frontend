@@ -1,67 +1,101 @@
 <app-navbar></app-navbar>
-<div class="student-list-container">
-  <h2>Student List</h2>
 
-  <div class="student-actions">
-    <button routerLink="/students/add">Add Student</button>
+<!-- Student List -->
+<div class="container">
+  <div class="flex-between">
+    <h2>Student List</h2>
+
+    <button mat-stroked-button color="primary" routerLink="/students/add">
+      Add Student
+    </button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Full Name</th>
-        <th>Father Name</th>
-        <th>Contact Number</th>
-        <th>Course</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let student of students; let i = index">
-        <td>{{ (page - 1) * limit + i + 1 }}</td>
-        <td [routerLink]="['/students', student._id]" class="student-name">
-          {{ student.fullName }}
-        </td>
-        <td>{{ student.fatherName }}</td>
-        <td>{{ student.contactNumber }}</td>
-        <td>{{ student.course }}</td>
-        <td class="action-buttons">
+  <div *ngIf="students.length > 0; else noStudents">
+    <table mat-table [dataSource]="dataSource">
+      <!-- Index Column -->
+      <ng-container matColumnDef="index">
+        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell *matCellDef="let student; let i = index">
+          {{ pageIndex * pageSize + i + 1 }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Full Name Column -->
+      <ng-container matColumnDef="fullName">
+        <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+        <mat-cell
+          *matCellDef="let student"
+          class="link"
+          [routerLink]="['/students', student._id]"
+          >{{ student.fullName }}</mat-cell
+        >
+      </ng-container>
+
+      <!-- Father's Name Column -->
+      <ng-container matColumnDef="fatherName">
+        <mat-header-cell *matHeaderCellDef>Father's Name</mat-header-cell>
+        <mat-cell *matCellDef="let student">{{ student.fatherName }}</mat-cell>
+      </ng-container>
+
+      <!-- Contact Number Column -->
+      <ng-container matColumnDef="contactNumber">
+        <mat-header-cell *matHeaderCellDef>Contact</mat-header-cell>
+        <mat-cell *matCellDef="let student">{{
+          student.contactNumber
+        }}</mat-cell>
+      </ng-container>
+
+      <!-- Course Column -->
+      <ng-container matColumnDef="course">
+        <mat-header-cell *matHeaderCellDef>Course</mat-header-cell>
+        <mat-cell *matCellDef="let student">{{ student.course }}</mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let student">
           <button
-            mat-stroked-button
+            mat-icon-button
+            color="accent"
+            [routerLink]="['/students', student._id]"
+            matTooltip="View Details"
+          >
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button
+            mat-icon-button
             [routerLink]="['/students/edit', student._id]"
+            matTooltip="Edit"
           >
-            Edit
-          </button>
-          <button mat-stroked-button [routerLink]="['/students', student._id]">
-            View
+            <mat-icon>edit</mat-icon>
           </button>
           <button
-            mat-stroked-button
-            class="delete-btn"
+            mat-icon-button
+            color="warn"
             (click)="deleteStudent(student._id)"
+            matTooltip="Delete"
           >
-            Delete
+            <mat-icon>delete</mat-icon>
           </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </mat-cell>
+      </ng-container>
 
-  <!-- Pagination Controls -->
-  <div class="pagination">
-    <button (click)="changePage(page - 1)" [disabled]="page === 1">
-      Previous
-    </button>
-    <span
-      >Showing {{ students.length }} of {{ totalStudents }} – Page {{ page }}/{{
-        totalPages
-      }}</span
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </table>
+
+    <!-- Pagination -->
+    <mat-paginator
+      [length]="totalStudents"
+      [pageSize]="limit"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
     >
-    <button (click)="changePage(page + 1)" [disabled]="page >= totalPages">
-      Next
-    </button>
+    </mat-paginator>
   </div>
 
-  <p *ngIf="students.length === 0" class="no-students">No students found.</p>
+  <ng-template #noStudents>
+    <p class="center">No students found.</p>
+  </ng-template>
 </div>

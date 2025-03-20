@@ -1,18 +1,38 @@
-<div class="header">
-  <div class="logo" routerLink="/students">Logo</div>
-  <div class="links">
-    <button *ngIf="isLoggedIn" routerLink="/students">Students List</button>
-    <button *ngIf="isLoggedIn" routerLink="/students/add">
-      Add New Student
-    </button>
+<mat-toolbar class="flex-between nav-container" color="primary">
+  <!-- Logo -->
+  <div>
+    <span class="logo" routerLink="/students" style="cursor: pointer">{{
+      currentUser
+    }}</span>
   </div>
-  <div class="auth-buttons">
-    <button *ngIf="!isLoggedIn && isSignupPage" routerLink="/login">
+
+  <div>
+    <button
+      mat-stroked-button
+      class="bg-white"
+      color="primary"
+      *ngIf="!isLoggedIn && isSignupPage"
+      routerLink="/login"
+    >
       Login
     </button>
-    <button *ngIf="!isLoggedIn && isLoginPage" routerLink="/signup">
+    <button
+      mat-stroked-button
+      class="bg-white"
+      color="primary"
+      *ngIf="!isLoggedIn && isLoginPage"
+      routerLink="/signup"
+    >
       Signup
     </button>
-    <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+    <button
+      mat-stroked-button
+      color="warn"
+      class="bg-white"
+      *ngIf="isLoggedIn"
+      (click)="logout()"
+    >
+      Logout
+    </button>
   </div>
-</div>
+</mat-toolbar>

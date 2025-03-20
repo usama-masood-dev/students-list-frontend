@@ -1,13 +1,23 @@
 <app-navbar></app-navbar>
+
 <div class="student-details-container">
-  <h2>Student Details</h2>
-
-  <div class="student-info">
-    <p><strong>Full Name:</strong> {{ student.fullName }}</p>
-    <p><strong>Father Name:</strong> {{ student.fatherName }}</p>
-    <p><strong>Contact Number:</strong> {{ student.contactNumber }}</p>
-    <p><strong>Course:</strong> {{ student.course }}</p>
-  </div>
-
-  <button (click)="backToList()" class="back-btn">Back</button>
+  <mat-card class="student-card">
+    <mat-card-title class="title">Student Details</mat-card-title>
+    <mat-card-content>
+      <p><strong>Full Name:</strong> {{ student.fullName }}</p>
+      <p><strong>Father Name:</strong> {{ student.fatherName }}</p>
+      <p><strong>Contact Number:</strong> {{ student.contactNumber }}</p>
+      <p><strong>Course:</strong> {{ student.course }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        class="back"
+        mat-stroked-button
+        color="primary"
+        (click)="backToList()"
+      >
+        Back
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>

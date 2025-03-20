@@ -1,67 +1,65 @@
 <app-navbar></app-navbar>
-<div class="login-container">
+<div class="form-container">
   <h2>Login</h2>
 
-  <form [formGroup]="loginForm" (submit)="onlogin()" class="login-form">
+  <form [formGroup]="loginForm" (submit)="onlogin()" class="form">
     <!-- Email Field -->
-    <div class="form-group">
-      <label for="email">Email:</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Email:</mat-label>
       <input
+        matInput
         type="email"
         id="email"
         placeholder="Enter your email"
         formControlName="email"
       />
-      <small
-        class="error"
+      <mat-error
         *ngIf="
           loginForm.get('email')?.hasError('required') &&
           loginForm.get('email')?.touched
         "
       >
         Email is required.
-      </small>
-      <small
-        class="error"
+      </mat-error>
+      <mat-error
         *ngIf="
           loginForm.get('email')?.hasError('email') &&
           loginForm.get('email')?.touched
         "
       >
         Enter a valid email address.
-      </small>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
     <!-- Password Field -->
-    <div class="form-group">
-      <label for="password">Password:</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Password:</mat-label>
       <input
+        matInput
         type="password"
         id="password"
         placeholder="Enter your password"
         formControlName="password"
       />
-      <small
-        class="error"
+      <mat-error
         *ngIf="
           loginForm.get('password')?.hasError('required') &&
           loginForm.get('password')?.touched
         "
       >
         Password is required.
-      </small>
-      <small
-        class="error"
+      </mat-error>
+      <mat-error
         *ngIf="
           loginForm.get('password')?.hasError('minlength') &&
           loginForm.get('password')?.touched
         "
       >
         Password must be at least 6 characters long.
-      </small>
-    </div>
+      </mat-error>
+    </mat-form-field>
 
     <!-- Login Button -->
-    <button type="submit" class="login-btn">Login</button>
+    <button type="submit" color="primary" mat-flat-button>Login</button>
   </form>
 </div>
