@@ -1,0 +1,20 @@
+.search {
+  width: 100%;
+  max-width: 250px;
+  padding: 8px;
+  border: 1px solid #767fb3;
+  font-size: 14px;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 0 8px rgba(89, 94, 124, 0.5);
+  }
+}
+
+.right {
+  text-align: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

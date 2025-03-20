@@ -1,9 +1,10 @@
 <mat-toolbar class="flex-between nav-container" color="primary">
   <!-- Logo -->
-  <div>
-    <span class="logo" routerLink="/students" style="cursor: pointer">{{
-      currentUser
-    }}</span>
+  <div class="gap-sm" routerLink="/students" style="cursor: pointer">
+    <span
+      ><img class="logo-image" src="../../../assets/student.svg" alt=""
+    /></span>
+    <span class="logo"> {{ currentUser }}</span>
   </div>
 
   <div>

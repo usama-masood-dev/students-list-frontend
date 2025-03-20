@@ -11,7 +11,16 @@
   </div>
 
   <div *ngIf="students.length > 0; else noStudents">
-    <table mat-table [dataSource]="dataSource">
+    <div class="right">
+      <input
+        matInput
+        class="search"
+        placeholder="Search Students"
+        (keyup)="applyFilter($event)"
+      />
+    </div>
+
+    <table mat-table [dataSource]="dataSource" matSort>
       <!-- Index Column -->
       <ng-container matColumnDef="index">
         <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
@@ -22,7 +31,9 @@
 
       <!-- Full Name Column -->
       <ng-container matColumnDef="fullName">
-        <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+        <mat-header-cell mat-sort-header *matHeaderCellDef
+          >Full Name</mat-header-cell
+        >
         <mat-cell
           *matCellDef="let student"
           class="link"
@@ -33,13 +44,17 @@
 
       <!-- Father's Name Column -->
       <ng-container matColumnDef="fatherName">
-        <mat-header-cell *matHeaderCellDef>Father's Name</mat-header-cell>
+        <mat-header-cell mat-sort-header *matHeaderCellDef
+          >Father's Name</mat-header-cell
+        >
         <mat-cell *matCellDef="let student">{{ student.fatherName }}</mat-cell>
       </ng-container>
 
       <!-- Contact Number Column -->
       <ng-container matColumnDef="contactNumber">
-        <mat-header-cell *matHeaderCellDef>Contact</mat-header-cell>
+        <mat-header-cell mat-sort-header *matHeaderCellDef
+          >Contact</mat-header-cell
+        >
         <mat-cell *matCellDef="let student">{{
           student.contactNumber
         }}</mat-cell>
@@ -47,7 +62,9 @@
 
       <!-- Course Column -->
       <ng-container matColumnDef="course">
-        <mat-header-cell *matHeaderCellDef>Course</mat-header-cell>
+        <mat-header-cell mat-sort-header *matHeaderCellDef
+          >Course</mat-header-cell
+        >
         <mat-cell *matCellDef="let student">{{ student.course }}</mat-cell>
       </ng-container>
 
