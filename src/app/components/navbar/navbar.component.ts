@@ -31,9 +31,9 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
     try {
-      const user = await this.authService.getUserDetails();
+      const user = this.authService.getUser();
       this.currentUser = user?.fullName ?? 'User';
     } catch (error) {
       console.error('Error fetching user details:', error);

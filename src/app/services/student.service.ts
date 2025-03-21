@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,19 +7,16 @@ import { AuthService } from './auth.service';
 export class StudentService {
   private apiUrl = 'http://localhost:5000/api/students';
 
-  constructor(private authService: AuthService) {}
-
   // Get All Students data
   async getStudents(page: number, limit: number) {
     try {
-      const user = await this.authService.getUserDetails();
-      if (!user || !user._id) {
-        throw new Error('User not logged in');
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('User not authenticated');
       }
 
-      const token = localStorage.getItem('token');
       const response = await axios.get(
-        `${this.apiUrl}?userId=${user._id}&page=${page}&limit=${limit}`,
+        `${this.apiUrl}?page=${page}&limit=${limit}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,9 +32,12 @@ export class StudentService {
   }
 
   // Create Student
-  async addStudent(studentData: any) {
+  async addStudent(studentData: object) {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('User not authenticated');
+      }
       const response = await axios.post(`${this.apiUrl}`, studentData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -52,7 +51,7 @@ export class StudentService {
   }
 
   // Update Student
-  async editStudent(id: string, updatedData: any) {
+  async editStudent(id: string, updatedData: object) {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.put(`${this.apiUrl}/${id}`, updatedData, {

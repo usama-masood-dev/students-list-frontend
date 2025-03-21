@@ -25,6 +25,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
+import { MatMenuModule } from '@angular/material/menu';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { MatSortModule } from '@angular/material/sort';
     NavbarComponent,
     StudentFormComponent,
     FooterComponent,
+    DateFormatPipe,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatFormFieldModule,
     MatCardModule,
     MatSortModule,
+    MatMenuModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

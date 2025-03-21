@@ -43,18 +43,14 @@ export class SignupComponent implements OnInit {
     }
     try {
       const { fullName, email, password } = this.signupForm.value;
-      const response = await this.authService.signup({
+      await this.authService.signup({
         fullName,
         email,
         password,
       });
 
-      const loginResponse = await this.authService.login({ email, password });
-
-      localStorage.setItem('token', loginResponse.token);
-
       this.toastService.showSuccess('SIGNUP_SUCCESS');
-      this.router.navigate(['/students']);
+      this.router.navigate(['/login']);
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response) {
         if (error.response.status === 400) {

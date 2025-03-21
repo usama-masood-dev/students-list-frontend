@@ -34,6 +34,7 @@ export class StudentFormComponent implements OnInit {
       Validators.pattern(/^[0-9]{10,15}$/),
     ]),
     course: new FormControl(this.courses[0], [Validators.required]),
+    updated_at: new FormControl(''),
   });
 
   constructor(
@@ -59,6 +60,7 @@ export class StudentFormComponent implements OnInit {
         fatherName: student.fatherName,
         contactNumber: student.contactNumber,
         course: student.course,
+        updated_at: student.updated_at || Date.now().toString(),
       });
     } catch (error) {
       console.error('Error loading student data', error);
@@ -73,18 +75,20 @@ export class StudentFormComponent implements OnInit {
 
     try {
       if (this.studentId) {
+        this.studentForm.patchValue({ updated_at: Date.now().toString() });
+
         await this.studentService.editStudent(
           this.studentId,
           this.studentForm.value
         );
         this.toastService.showSuccess('STUDENT_UPDATED');
       } else {
-        const user = await this.authService.getUserDetails();
-        if (!user || !user._id) {
-          throw new Error('User not logged in');
-        }
+        const studentData = {
+          ...this.studentForm.value,
+          created_at: Date.now().toString(),
+          updated_at: Date.now().toString(),
+        };
 
-        const studentData = { ...this.studentForm.value, userId: user._id };
         await this.studentService.addStudent(studentData);
         this.toastService.showSuccess('STUDENT_ADDED');
       }

@@ -23,18 +23,19 @@
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- Index Column -->
       <ng-container matColumnDef="index">
-        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-        <mat-cell *matCellDef="let student; let i = index">
+        <mat-header-cell fxFlex="5%" *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell fxFlex="5%" *matCellDef="let student; let i = index">
           {{ pageIndex * pageSize + i + 1 }}
         </mat-cell>
       </ng-container>
 
       <!-- Full Name Column -->
       <ng-container matColumnDef="fullName">
-        <mat-header-cell mat-sort-header *matHeaderCellDef
+        <mat-header-cell fxFlex="15%" mat-sort-header *matHeaderCellDef
           >Full Name</mat-header-cell
         >
         <mat-cell
+          fxFlex="15%"
           *matCellDef="let student"
           class="link"
           [routerLink]="['/students', student._id]"
@@ -44,57 +45,76 @@
 
       <!-- Father's Name Column -->
       <ng-container matColumnDef="fatherName">
-        <mat-header-cell mat-sort-header *matHeaderCellDef
+        <mat-header-cell fxFlex="15%" mat-sort-header *matHeaderCellDef
           >Father's Name</mat-header-cell
         >
-        <mat-cell *matCellDef="let student">{{ student.fatherName }}</mat-cell>
+        <mat-cell fxFlex="15%" *matCellDef="let student">{{
+          student.fatherName
+        }}</mat-cell>
       </ng-container>
 
       <!-- Contact Number Column -->
       <ng-container matColumnDef="contactNumber">
-        <mat-header-cell mat-sort-header *matHeaderCellDef
+        <mat-header-cell fxFlex="15%" mat-sort-header *matHeaderCellDef
           >Contact</mat-header-cell
         >
-        <mat-cell *matCellDef="let student">{{
+        <mat-cell fxFlex="15%" *matCellDef="let student">{{
           student.contactNumber
         }}</mat-cell>
       </ng-container>
 
       <!-- Course Column -->
       <ng-container matColumnDef="course">
-        <mat-header-cell mat-sort-header *matHeaderCellDef
+        <mat-header-cell fxFlex="15%" mat-sort-header *matHeaderCellDef
           >Course</mat-header-cell
         >
-        <mat-cell *matCellDef="let student">{{ student.course }}</mat-cell>
+        <mat-cell fxFlex="15%" *matCellDef="let student">{{
+          student.course
+        }}</mat-cell>
+      </ng-container>
+
+      <!-- Created at -->
+      <ng-container matColumnDef="created_at">
+        <mat-header-cell fxFlex="12%" *matHeaderCellDef
+          >Created At</mat-header-cell
+        >
+        <mat-cell fxFlex="12%" *matCellDef="let student">
+          {{ student.createdAt | dateFormat : "short" }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Updated at -->
+      <ng-container matColumnDef="updated_at">
+        <mat-header-cell fxFlex="12%" *matHeaderCellDef
+          >Updated At</mat-header-cell
+        >
+        <mat-cell fxFlex="12%" *matCellDef="let student">
+          {{ student.updatedAt | dateFormat : "" }}
+        </mat-cell>
       </ng-container>
 
       <!-- Actions Column -->
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Actions </mat-header-cell>
         <mat-cell *matCellDef="let student">
-          <button
-            mat-icon-button
-            color="accent"
-            [routerLink]="['/students', student._id]"
-            matTooltip="View Details"
-          >
-            <mat-icon>visibility</mat-icon>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
           </button>
-          <button
-            mat-icon-button
-            [routerLink]="['/students/edit', student._id]"
-            matTooltip="Edit"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            color="warn"
-            (click)="deleteStudent(student._id)"
-            matTooltip="Delete"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/students', student._id]">
+              <mat-icon color="accent">visibility</mat-icon> View Details
+            </button>
+            <button
+              mat-menu-item
+              [routerLink]="['/students/edit', student._id]"
+            >
+              <mat-icon color="primary">edit</mat-icon> Edit
+            </button>
+            <button mat-menu-item (click)="deleteStudent(student._id)">
+              <mat-icon color="warn">delete</mat-icon> Delete
+            </button>
+          </mat-menu>
         </mat-cell>
       </ng-container>
 

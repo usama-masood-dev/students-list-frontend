@@ -4,7 +4,7 @@ export const TOAST_MESSAGES = {
     STUDENT_UPDATED: 'Student updated successfully!',
     STUDENT_DELETED: 'Student deleted successfully!',
     LOGIN_SUCCESS: 'Login successful!',
-    SIGNUP_SUCCESS: 'Signup successful!',
+    SIGNUP_SUCCESS: 'Signup successful! Check your email.',
     LOGOUT_SUCCESS: 'You have been logged out!',
   },
   ERROR: {
